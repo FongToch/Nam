@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FONG</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruuy+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .profile-header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .profile-avatar-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 12px auto;
+        }
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #00e1ff;
+            background-color: #111a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-avatar i {
+            font-size: 36px;
+            color: #00e1ff;
+        }
+        .status-dot {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 14px;
+            height: 14px;
+            background-color: #10b981;
+            border-radius: 50%;
+            border: 2px solid #0a1120;
+        }
+        .profile-username {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+        }
+        .profile-id {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 4px 0 0 0;
+        }
+        .profile-wallet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+        .wallet-card {
+            background-color: #111a2e;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .wallet-icon-box {
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .diamond-bg { background-color: rgba(0, 225, 255, 0.1); }
+        .diamond-bg i { color: #00e1ff; }
+        .balance-bg { background-color: rgba(168, 85, 247, 0.1); }
+        .balance-bg i { color: #a855f7; }
+        .wallet-label {
+            font-size: 10px;
+            color: #9ca3af;
+            margin: 0;
+        }
+        .wallet-value {
+            font-size: 14px;
+            font-weight: bold;
+            color: #e5e7eb;
+            margin: 2px 0 0 0;
+        }
+        .profile-menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 5px;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px;
+            background-color: #111a2e;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .menu-item:hover {
+            background-color: #16223b;
+        }
+        .menu-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .menu-left i {
+            font-size: 16px;
+            color: #9ca3af;
+            width: 20px;
+            text-align: center;
+        }
+        .menu-left span {
+            font-size: 14px;
+            color: #e5e7eb;
+        }
+        .arrow-icon {
+            font-size: 12px;
+            color: #4b5563;
+        }
+        .menu-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .menu-badge {
+            background-color: #ef4444;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+        .logout-btn {
+            background-color: #1a1523;
+            border-color: rgba(239, 68, 68, 0.1);
+            margin-top: 15px;
+        }
+        .logout-btn:hover {
+            background-color: #251b33;
+        }
+        .logout-btn .menu-left i, .logout-btn .menu-left span {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <div class="site-logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="search-container">
+            <i class="fa fa-search search-icon"></i>
+            <input type="text" placeholder="Search game...">
+        </div>
+        <div class="action-icons">
+            <div class="icon-badge">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="badge">5</span>
+            </div>
+            <div class="icon-badge">
+                <i class="fa fa-bell"></i>
+                <span class="badge">9</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container" id="homePage">
+        
+        <div class="hero-banner">
+            <div class="banner-slide active">
+                <img src="banner1.png" class="banner-bg-img" alt="Banner 1">
+                <div class="banner-overlay"></div>
+                <div class="banner-content">
+                    <span class="tag">NO 1</span>
+                    <h2>TOP UP GAME</h2>
+                    <p>លឿន រហ័ស សុវត្ថិភាព</p>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="banner2.png" class="banner-bg-img" alt="Banner 2">
+                <div class="banner-overlay"></div>
+                <div class="banner-content">
+                    <span class="tag">PROMO</span>
+                    <h2>WEEKEND BONUS</h2>
+                    <p>GET EXTRA 10% DIAMONDS NOW</p>
+                </div>
+            </div>
+            <div class="banner-slide">
+                <img src="banner3.png" class="banner-bg-img" alt="Banner 3">
+                <div class="banner-overlay"></div>
+                <div class="banner-content">
+                    <span class="tag">PROMO</span>
+                    <h2>WEEKEND BONUS</h2>
+                    <p>GET EXTRA 10% DIAMONDS NOW</p>
+                </div>
+            </div>
+            <div class="banner-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+            </div>
+        </div>
+
+        <section class="section-title">
+            <h3>Games All</h3>
+        </section>
+        
+        <div class="game-grid">
+            <div class="game-card" onclick="openTopUp('Mobile Legends')">
+                <img src="1k.jpg" alt="ML">
+                <span>Mobile Legends</span>
+            </div>
+            <div class="game-card" onclick="openTopUp('Free Fire')">
+                <img src="2k.jpg" alt="FF">
+                <span>Free Fire</span>
+            </div>
+            <div class="game-card" onclick="openTopUp('PUBG Mobile')">
+                <img src="3k.jpg" alt="PUBG">
+                <span>PUBG Mobile</span>
+            </div>
+            <div class="game-card" onclick="openTopUp('Call of Duty')">
+                <img src="4k.jpg" alt="CODM">
+                <span>Call of Duty</span>
+            </div>
+            <div class="game-card" onclick="openTopUp('Where Winds Meet')">
+                <img src="5k.jpg" alt="Where Winds Meet">
+                <span>Where Winds</span>
+            </div>
+            <div class="game-card" onclick="openTopUp('Valorant')">
+                <img src="6k.jpg" alt="Valorant">
+                <span>Valorant</span>
+            </div>
+            <div class="game-card" onclick="openTopUp('Blood Strike')">
+                <img src="7k.jpg" alt="Blood Strike">
+                <span>Blood Strike</span>
+            </div>
+            <div class="game-card" onclick="openTopUp('Honor of Kings')">
+                <img src="8k.jpg" alt="Honor of Kings">
+                <span>Honor of King</span>
+            </div>
+        </div>
+
+        <div class="member-banner">
+            <div class="member-text">
+                <h4>JOIN MEMBERSHIP PREMIUM</h4>
+                <p>មាន reward រាល់ការ Topupគ្រប់100$ម្ដង</p>
+            </div>
+            <button class="btn-check">Check</button>
+        </div>
+        
+        <section class="flash-sale-section">
+            <div class="flash-header">
+                <div class="flash-title">
+                    <i class="fa fa-bolt"></i> Promotion
+                </div>
+                <div class="countdown-timer">
+                    <span class="time-block" id="flash-hours">03</span> :
+                    <span class="time-block" id="flash-minutes">29</span> :
+                    <span class="time-block" id="flash-seconds">53</span>
+                </div>
+            </div>
+            <div class="flash-grid">
+                <div class="flash-card">
+                    <img src="vr.jpg" alt="FF">
+                    <div class="discount-badge">10% OFF</div>
+                </div>
+                <div class="flash-card">
+                    <img src="ml.jpg" alt="ML">
+                    <div class="discount-badge">15% OFF</div>
+                </div>
+                <div class="flash-card">
+                    <img src="pb.jpg" alt="PG">
+                    <div class="discount-badge">5% OFF</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <div class="app-container" id="topupPage" style="display: none; padding-top: 80px; padding-bottom: 100px;">
+        
+        <button class="btn-back" onclick="closeTopUp()"><i class="fa fa-arrow-left"></i> ត្រឡប់ទៅក្រោយ</button>
+        
+        <div class="tu-banner-card">
+            <div class="tu-banner-img-wrapper">
+                <img src="banner1.png" id="topupGameBanner" alt="Game Banner" class="tu-banner-img">
+            </div>
+            <div class="tu-banner-info">
+                <div class="tu-badge-khmer">KHMER</div>
+                <div>
+                    <h2 class="tu-game-title">
+                        <span id="currentGameName">Mobile Legends</span> 
+                        <i class="fa-solid fa-circle-check tu-verified-icon"></i>
+                    </h2>
+                    <p class="tu-game-sub">By Official • Base • 24/7</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tu-info-card">
+            <div class="tu-card-header">
+                <div class="tu-card-title">
+                    <i class="fa fa-user-circle"></i>
+                    <span>Enter Your Information</span>
+                </div>
+                <i class="fa fa-question-circle tu-help-icon"></i>
+            </div>
+            
+            <div class="tu-input-group" id="dynamic-inputs"></div>
+
+            <button id="btnVerify" class="tu-btn-verify">
+                <i class="fa fa-search"></i> ពិនិត្យឈ្មោះគណនី (Verify Name)
+            </button>
+            
+            <div id="verify-result" class="tu-verify-status">
+                <div class="tu-player-row">
+                    <span>Player</span>
+                    <span id="verifiedNickname" class="tu-status-text">Not checked</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tu-section-products">
+            <div class="tu-products-header">
+                <div class="tu-section-label">
+                    <i class="fa fa-gem"></i> BEST SELLING
+                </div>
+                <span class="tu-items-count">10 ITEMS</span>
+            </div>
+
+            <div class="diamond-grid tu-diamond-grid" id="dynamic-items"></div>
+        </div>
+
+        <div class="tu-sticky-bottom" id="topupStickyBar">
+            <div class="tu-sticky-content">
+                <div class="tu-total-box">
+                    <p class="tu-total-text">Total: <span class="tu-total-price" id="displayTotalPrice">$0.00</span></p>
+                    <p class="tu-product-sub">Product: <span id="displaySelectedProduct">-</span></p>
+                </div>
+                <button id="btnSubmit" class="tu-btn-pay">
+                    <i class="fa-solid fa-wallet"></i> Pay Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="app-container" id="profilePage" style="display: none; padding-top: 80px; padding-bottom: 100px;">
+        
+        <div class="profile-header">
+            <div class="profile-avatar-wrapper">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <span class="status-dot"></span>
+            </div>
+            <h2 class="profile-username">FONG</h2>
+            <p class="profile-id">ID: 55432109</p>
+        </div>
+
+        <div class="member-banner" style="margin-top: 15px; margin-bottom: 20px;">
+            <div class="member-text">
+                <h4>JOIN MEMBERSHIP PREMIUM</h4>
+                <p>ទទួលបានការបញ្ចុះតម្លៃពិសេសរៀងរាល់ថ្ងៃ</p>
+            </div>
+            <button class="btn-check">Check</button>
+        </div>
+
+        <div class="profile-wallet-grid">
+            <div class="wallet-card">
+                <div class="wallet-icon-box diamond-bg">
+                    <i class="fa-solid fa-gem"></i>
+                </div>
+                <div class="wallet-info">
+                    <p class="wallet-label">ពេជ្រសរុប</p>
+                    <p class="wallet-value">1,250</p>
+                </div>
+            </div>
+            <div class="wallet-card">
+                <div class="wallet-icon-box balance-bg">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+                <div class="wallet-info">
+                    <p class="wallet-label">សមតុល្យទឹកប្រាក់</p>
+                    <p class="wallet-value">$0.00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-menu-list">
+            <a href="#" class="menu-item">
+                <div class="menu-left">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <span>ព័ត៌មានគណនីផ្ទាល់ខ្លួន</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="javascript:void(0)" onclick="openOrders()" class="menu-item">
+              
+                <div class="menu-left">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>ប្រវត្តិនៃការទិញ (Orders)</span>
+    </div>
+                <div class="menu-right">
+                    <span class="menu-badge">9</span>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                </div>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-left">
+                    <i class="fa-solid fa-gift"></i>
+                    <span>កូដប្រូម៉ូសិនរបស់ខ្ញុំ</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="#" class="menu-item">
+                <div class="menu-left">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>ប្រព័ន្ធសុវត្ថិភាព</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <button class="menu-item logout-btn">
+                <div class="menu-left">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>ចាកចេញពីគណនី</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </button>
+        </div>
+    </div>
+    <!-- ORDER HISTORY PAGE -->
+<div class="app-container main-page" id="ordersPage" style="display:none; padding-top:80px; padding-bottom:100px;">
+
+    <button class="btn-back" onclick="returnToProfile()" 
+    style="background:none;border:none;color:#00e1ff;font-size:14px;cursor:pointer;margin-bottom:20px;">
+        <i class="fa fa-arrow-left"></i> ត្រឡប់ក្រោយ
+    </button>
+
+
+    <section class="section-title">
+        <h3>
+            <i class="fa-solid fa-clock-rotate-left" style="color:#00e1ff;"></i>
+            ប្រវត្តិនៃការទិញ
+        </h3>
+    </section>
+
+
+    <div id="orderList">
+
+        <p style="text-align:center;color:#9ca3af;">
+            កំពុងផ្ទុកទិន្នន័យ...
+        </p>
+
+    </div>
+
+
+</div>
+        <!-- ========================================== -->
+    <!-- ផ្ទាំងព័ត៌មានគណនីផ្ទាល់ខ្លួន (ACCOUNT INFO PAGE) -->
+    <!-- ========================================== -->
+    <div class="app-container main-page" id="accountInfoPage" style="display: none; padding-top: 80px; padding-bottom: 100px;">
+        <button class="btn-back" onclick="returnToProfile()" style="background:none; border:none; color:#00e1ff; font-size:14px; cursor:pointer; margin-bottom:20px;">
+            <i class="fa fa-arrow-left"></i> ត្រឡប់ក្រោយ
+        </button>
+        <section class="section-title">
+            <h3><i class="fa-solid fa-user-gear" style="color: #00e1ff;"></i> ព័ត៌មានគណនីផ្ទាល់ខ្លួន</h3>
+        </section>
+        <div style="background:#111a2e; padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.05); margin-top:15px; display:flex; flex-direction:column; gap:15px;">
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px;">
+                <span style="color:#9ca3af;">ឈ្មោះគណនី</span><strong style="color:#fff;">FONG Official</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px;">
+                <span style="color:#9ca3af;">លេខសម្គាល់ (User ID)</span><strong style="color:#00e1ff;">55432109</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px;">
+                <span style="color:#9ca3af;">លេខទូរស័ព្ទ</span><strong style="color:#fff;">096 **** 123</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:10px;">
+                <span style="color:#9ca3af;">កម្រិតគណនី</span><span style="color:#fbbf24; font-weight:bold;"><i class="fa fa-star"></i> Silver Member</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+                <span style="color:#9ca3af;">កាលបរិច្ឆេទចុះឈ្មោះ</span><strong style="color:#fff;">01-Jan-2026</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ផ្ទាំងកូដប្រូម៉ូសិន (PROMO CODES PAGE) -->
+    <!-- ========================================== -->
+    <div class="app-container main-page" id="promoCodesPage" style="display: none; padding-top: 80px; padding-bottom: 100px;">
+        <button class="btn-back" onclick="returnToProfile()" style="background:none; border:none; color:#00e1ff; font-size:14px; cursor:pointer; margin-bottom:20px;">
+            <i class="fa fa-arrow-left"></i> ត្រឡប់ក្រោយ
+        </button>
+        <section class="section-title">
+            <h3><i class="fa-solid fa-gift" style="color: #00e1ff;"></i> កូដប្រូម៉ូសិនរបស់ខ្ញុំ</h3>
+        </section>
+        <div class="search-container" style="margin-top:15px; background:#111a2e; border-radius:10px; display:flex; padding:5px 10px; border:1px solid rgba(255,255,255,0.05);">
+            <input type="text" placeholder="បញ្ចូលកូដ تخفیف / Promo Code" style="background:none; border:none; color:#fff; width:100%; padding:10px; outline:none;">
+            <button style="background:#00e1ff; border:none; padding:0 15px; border-radius:8px; color:#000; font-weight:bold; cursor:pointer;">Apply</button>
+        </div>
+        <p style="color:#9ca3af; text-align:center; margin-top:30px; font-size:14px;">មិនទាន់មានកូដបញ្ចុះតម្លៃប្រើប្រាស់បាននៅឡើយទេ</p>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ផ្ទាំងប្រព័ន្ធសុវត្ថិភាព (SECURITY PAGE) -->
+    <!-- ========================================== -->
+    <div class="app-container main-page" id="securityPage" style="display: none; padding-top: 80px; padding-bottom: 100px;">
+        <button class="btn-back" onclick="returnToProfile()" style="background:none; border:none; color:#00e1ff; font-size:14px; cursor:pointer; margin-bottom:20px;">
+            <i class="fa fa-arrow-left"></i> ត្រឡប់ក្រោយ
+        </button>
+        <section class="section-title">
+            <h3><i class="fa-solid fa-shield-halved" style="color: #00e1ff;"></i> ប្រព័ន្ធការពារសុវត្ថិភាព</h3>
+        </section>
+        <div style="background:#111a2e; border-radius:12px; margin-top:15px; overflow:hidden; border:1px solid rgba(255,255,255,0.05);">
+            <div style="padding:15px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.05); cursor:pointer;" onclick="alert('មុខងារប្តូរពាក្យសម្ងាត់')">
+                <span style="color:#fff; font-size:14px;"><i class="fa fa-key" style="margin-right:10px; color:#9ca3af;"></i> ផ្លាស់ប្តូរពាក្យសម្ងាត់ (Password)</span>
+                <i class="fa fa-chevron-right" style="color:#4b5563; font-size:12px;"></i>
+            </div>
+            <div style="padding:15px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="alert('មុខងារបើក 2FA Security')">
+                <span style="color:#fff; font-size:14px;"><i class="fa fa-mobile-screen" style="margin-right:10px; color:#9ca3af;"></i> ផ្ទៀងផ្ទាត់ ២ ជាន់ (2-Factor Authentication)</span>
+                <span style="color:#ef4444; font-size:12px; font-weight:bold;">បិទចោល</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ប៉ុបអាប់ MEMBERSHIP PREMIUM MODAL -->
+    <!-- ========================================== -->
+    <div id="premiumModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:#111a2e; padding:25px; border-radius:16px; width:85%; max-width:400px; text-align:center; border:1px solid #fbbf24; position:relative;">
+            <span onclick="closePremiumModal()" style="position:absolute; top:15px; right:20px; color:#9ca3af; font-size:24px; cursor:pointer;">&times;</span>
+            <i class="fa-solid fa-crown" style="font-size:48px; color:#fbbf24; margin-bottom:15px;"></i>
+            <h3 style="color:#fff; margin-bottom:10px;">Premium Membership</h3>
+            <p style="color:#9ca3af; font-size:13px; line-height:1.6; margin-bottom:20px;">
+                ក្លាយជាសមាជិក VIP ដើម្បីទទួលបានការថែមជូនកាដូពេជ្រពិសេស និងការបញ្ចុះតម្លៃរាល់ការបញ្ចូលហ្គេមគ្រប់ប្រភេទ!
+            </p>
+            <button onclick="alert('ប្រព័ន្ធកំពុងដំណើរការរៀបចំកញ្ចប់ VIP')" style="background:#fbbf24; border:none; width:100%; padding:12px; border-radius:8px; color:#000; font-weight:bold; cursor:pointer;">
+            </button>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <i class="fa fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Promotion</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa fa-th-large"></i>
+            <span>Games</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa fa-file-invoice"></i>
+            <span>Order</span>
+        </div>
+        <div class="nav-item"onclick="openProfile()">
+            <i class="fa fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h3>ទូទាត់ប្រាក់តាម KHQR</h3>
+            <div class="khqr-box"><img src="sal.jpg" alt="KHQR" class="khqr-img"></div>
+            <div class="payment-details">
+                <p>ហ្គេម៖ <span id="modalGame">...</span></p>
+                <p>ចំនួន៖ <span id="modalDiamond">...</span></p>
+                <p>តម្លៃ៖ <strong id="modalPrice">$0.00</strong></p>
+            </div>
+            <button id="btnConfirmPayment" class="btn-confirm" disabled>⏳ រង់ចាំការស្កែនទូទាត់ប្រាក់...</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+function switchPage(pageId, navId) {
+    // 1. លាក់រាល់ផ្ទាំងទំព័រទាំងអស់សិន
+    const pages = document.querySelectorAll('.tab-content');
+    pages.forEach(page => {
+        page.style.display = 'none';
+    });
+
+    // 2. បើកបង្ហាញតែទំព័រណាដែលយើងបានចុចចំ
+    document.getElementById(pageId).style.display = 'block';
+
+    // 3. ដកអាវពណ៌ខៀវ (active) ចេញពីប៊ូតុង Nav ទាំងអស់
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // 4. បន្ថែមពណ៌ខៀវ (active) ទៅលើប៊ូតុង Nav ដែលយើងបានចុច
+    document.getElementById(navId).classList.add('active');
+    
+    // ជួយរុញ Scroll ទៅលើគេវិញស្វ័យប្រវត្តិពេលប្តូរទំព័រ
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+<script>
+
+function openOrders(){
+
+    document.querySelectorAll(".app-container")
+    .forEach(page=>{
+        page.style.display="none";
+    });
+
+
+    document.getElementById("ordersPage")
+    .style.display="block";
+
+
+    loadOrders();
+
+}
+
+
+
+async function loadOrders(){
+
+    const box=document.getElementById("orderList");
+
+
+    try{
+
+        let response = await fetch("/api/orders");
+
+
+        let orders = await response.json();
+
+
+
+        if(!orders.length){
+
+            box.innerHTML=`
+            <p style="text-align:center;color:#9ca3af;">
+            មិនទាន់មាន Order ទេ
+            </p>
+            `;
+
+            return;
+        }
+
+
+
+        box.innerHTML="";
+
+
+
+        orders.forEach(order=>{
+
+
+            box.innerHTML += `
+
+            <div style="
+            background:#111a2e;
+            padding:15px;
+            border-radius:12px;
+            margin-bottom:12px;
+            border:1px solid rgba(255,255,255,.05);
+            ">
+
+
+                <div style="
+                display:flex;
+                justify-content:space-between;
+                ">
+
+                <strong style="color:#fff">
+                ${order.game || "Game"}
+                </strong>
+
+
+                <span style="
+                color:#00e1ff;
+                ">
+                ${order.status || "Pending"}
+                </span>
+
+                </div>
+
+
+
+                <p style="
+                color:#9ca3af;
+                font-size:13px;
+                margin-top:8px;
+                ">
+                Product:
+                ${order.product || "-"}
+                </p>
+
+
+                <p style="
+                color:#9ca3af;
+                font-size:13px;
+                ">
+                Price:
+                $${order.amount || "0"}
+                </p>
+
+
+                <p style="
+                color:#6b7280;
+                font-size:12px;
+                ">
+                ${order.created_at || ""}
+                </p>
+
+
+
+            </div>
+
+
+            `;
+
+
+        });
+
+
+
+    }
+    catch(err){
+
+        box.innerHTML=`
+
+        <p style="color:#ef4444;text-align:center">
+        Error loading orders
+        </p>
+
+        `;
+
+        console.log(err);
+
+    }
+
+}
+
+
+
+function returnToProfile(){
+
+    document.querySelectorAll(".app-container")
+    .forEach(page=>{
+        page.style.display="none";
+    });
+
+
+    document.getElementById("profilePage")
+    .style.display="block";
+
+}
+function hideAllPages(){
+
+    document.querySelectorAll(".app-container")
+    .forEach(page=>{
+        page.style.display="none";
+    });
+
+}
+
+
+
+function openOrders(){
+
+    hideAllPages();
+
+
+    document.getElementById("ordersPage")
+    .style.display="block";
+
+
+    loadOrders();
+
+}
+
+
+
+function openProfile(){
+
+    hideAllPages();
+
+
+    document.getElementById("profilePage")
+    .style.display="block";
+
+}
+
+
+
+function returnToProfile(){
+
+    openProfile();
+
+}
+
+
+
+async function loadOrders(){
+
+const box=document.getElementById("orderList");
+
+
+try{
+
+
+let res = await fetch("/api/orders");
+
+let data = await res.json();
+
+
+let orders = data.orders || data;
+
+
+
+if(!orders || orders.length===0){
+
+box.innerHTML=`
+
+<p style="text-align:center;color:#9ca3af">
+មិនទាន់មាន Order
+</p>
+
+`;
+
+return;
+
+}
+
+
+
+box.innerHTML="";
+
+
+orders.forEach(order=>{
+
+
+box.innerHTML += `
+
+
+<div style="
+background:#111a2e;
+padding:15px;
+border-radius:12px;
+margin-bottom:12px;
+">
+
+
+<h4 style="color:white">
+${order.game || "Game"}
+</h4>
+
+
+<p style="color:#9ca3af">
+Product: ${order.product || "-"}
+</p>
+
+
+<p style="color:#00e1ff">
+$${order.amount || 0}
+</p>
+
+
+<span style="color:#10b981">
+${order.status || "Pending"}
+</span>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}
+catch(e){
+
+
+box.innerHTML=`
+
+<p style="color:red;text-align:center">
+Error loading orders
+</p>
+
+`;
+
+
+console.log(e);
+
+
+}
+
+
+}
+
+
+</script>
+</body>
+</html>
